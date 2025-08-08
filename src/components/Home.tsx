@@ -72,7 +72,7 @@ const Home = () => {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6 leading-tight">
-              TravelMate AI
+              VISITO
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-4 max-w-3xl mx-auto leading-relaxed">
@@ -134,7 +134,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-              Why Choose TravelMate AI?
+              Why Choose VISITO?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Experience the future of travel planning with our intelligent features
@@ -205,7 +205,7 @@ const Home = () => {
             Ready for Your Next Adventure?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join thousands of travelers who trust TravelMate AI to create unforgettable experiences
+            Join thousands of travelers who trust VISITO to create unforgettable experiences
           </p>
           <Link
             to="/register"
@@ -222,7 +222,7 @@ const Home = () => {
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Plane className="w-6 h-6 transform rotate-45" />
-            <span className="text-xl font-bold">TravelMate AI</span>
+            <span className="text-xl font-bold">VISITO</span>
           </div>
           <p className="text-gray-400 mb-4">
             Making travel planning intelligent, personal, and effortless
