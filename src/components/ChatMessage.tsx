@@ -1,6 +1,7 @@
 import React from 'react';
 import { Message } from '../types';
 import { Bot, User } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface ChatMessageProps {
   message: Message;
@@ -20,11 +21,17 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       </div>
       
       <div className={`max-w-xs lg:max-w-md xl:max-w-lg ${
-        isAI ? 'bg-white' : 'bg-gradient-to-r from-blue-500 to-teal-500 text-white'
+        isAI ? 'bg-white' : 'bg-gradient-to-r from-blue-500 to-teal-500'
       } rounded-2xl px-4 py-3 shadow-md`}>
-        <p className={`text-sm ${isAI ? 'text-gray-800' : 'text-white'}`}>
-          {message.text}
-        </p>
+        <div className={`prose prose-sm max-w-none ${
+          isAI ? 'text-gray-800' : 'text-white'
+        }`}>
+          {isAI ? (
+            <ReactMarkdown>{message.text}</ReactMarkdown>
+          ) : (
+            <p>{message.text}</p>
+          )}
+        </div>
         <span className={`text-xs mt-1 block ${
           isAI ? 'text-gray-500' : 'text-blue-100'
         }`}>
