@@ -22,9 +22,11 @@ interface Location {
 
 interface OSMMapProps {
   locations: Location[];
+  onBookingSelect?: (hotelName: string) => void; // optional callback
+  onRegionSelect?: (latlng: { lat: number; lng: number }) => void; // new callback for region click
 }
 
-const OSMMap: React.FC<OSMMapProps> = ({ locations }) => {
+const OSMMap: React.FC<OSMMapProps> = ({ locations, onBookingSelect, onRegionSelect }) => {
   const mapRef = useRef<LeafletMap | null>(null);
   const [isMounted, setIsMounted] = React.useState(false);
 
@@ -35,9 +37,15 @@ const OSMMap: React.FC<OSMMapProps> = ({ locations }) => {
 
   if (!isMounted || locations.length === 0) return null;
 
-  // Calculate center point
   const centerLat = locations.reduce((sum, loc) => sum + loc.lat, 0) / locations.length;
   const centerLng = locations.reduce((sum, loc) => sum + loc.lng, 0) / locations.length;
+
+  const hotelIcon = new L.Icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/2201/2201577.png',
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -30]
+  });
 
   return (
     <div className="mt-4 rounded-xl overflow-hidden h-96">
@@ -51,17 +59,34 @@ const OSMMap: React.FC<OSMMapProps> = ({ locations }) => {
             mapRef.current.invalidateSize();
           }
         }}
+        onClick={(e: L.LeafletMouseEvent) => {
+          if (onRegionSelect) {
+            onRegionSelect(e.latlng); // Pass lat/lng back to parent
+          }
+        }}
       >
+
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {locations.map((location, index) => (
-          <Marker key={index} position={[location.lat, location.lng]}>
+          <Marker
+            key={index}
+            position={[location.lat, location.lng]}
+            icon={location.type === 'booking' ? hotelIcon : undefined}
+          >
             <Popup>
               <div className="font-bold text-blue-600">{location.name}</div>
               <div className="text-sm">{location.description}</div>
-              <div className="mt-1 text-xs text-gray-500 capitalize">{location.type}</div>
+              {location.type === 'booking' && onBookingSelect && (
+                <button
+                  className="mt-2 px-3 py-1 bg-blue-500 text-white rounded-lg text-sm"
+                  onClick={() => onBookingSelect(location.name)}
+                >
+                  View Hotels
+                </button>
+              )}
             </Popup>
           </Marker>
         ))}

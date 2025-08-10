@@ -10,6 +10,7 @@ export interface UserPreferences {
   foodType?: string;
   accommodationType?: string;
   budget?: string;
+  destination?: string;
   travelStyle?: string;
 }
 
@@ -22,6 +23,8 @@ export interface BookingRequest {
   date?: string;
   passengers?: number;
   class?: string;
+  lat?: number;  // <-- Add
+  lng?: number;
 }
 
 export interface Booking {
@@ -34,6 +37,9 @@ export interface Booking {
   amenities?: string[];
   time?: string;
   class?: string;
+  lat?: number; // <-- add this
+  lng?: number; // <-- add this
+  description?: string;
 }
 
 export interface Attraction {
